@@ -24,7 +24,7 @@ export function StickyCTA() {
     >
       <a
         href="#find-us"
-        className="btn-puffy flex min-h-13 items-center justify-center bg-pink font-display text-xl font-extrabold text-cream"
+        className="btn-puffy flex min-h-13 items-center justify-center bg-pink font-display text-xl font-extrabold text-ink"
       >
         Find a Stand 🍋
       </a>

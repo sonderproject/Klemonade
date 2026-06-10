@@ -11,8 +11,6 @@
   "dependencies": {
     "@fontsource/baloo-2": "^5.2.5",
     "@fontsource/outfit": "^5.2.5",
-    "@gsap/react": "^2.1.2",
-    "@react-three/drei": "^10.0.6",
     "@react-three/fiber": "^9.1.2",
     "gsap": "^3.12.7",
     "react": "^19.1.0",

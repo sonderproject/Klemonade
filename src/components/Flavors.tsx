@@ -1,11 +1,7 @@
 import { useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
+import { useGsapSetup } from '../anim'
 import { useIsDesktop, useReducedMotion } from '../hooks'
 import { LemonCan, LemonSlice, Sparkle, Heart, Kori, Ichigo, Squiggle, WaveDivider } from '../art'
-
-gsap.registerPlugin(ScrollTrigger)
 
 type Flavor = {
   name: string
@@ -171,7 +167,9 @@ function FlavorPanel({ flavor, index }: { flavor: Flavor; index: number }) {
           <p className="mt-4 inline-block -rotate-1 rounded-2xl border-3 border-ink bg-cream px-4 py-2 font-display text-lg font-bold sticker-shadow-sm md:text-2xl">
             {flavor.tagline}
           </p>
-          <p className="mt-4 max-w-sm font-body text-base font-medium text-ink/90 md:text-lg">{flavor.desc}</p>
+          <p className="mt-4 max-w-sm rounded-2xl bg-cream/80 px-4 py-2 font-body text-base font-medium text-ink md:text-lg">
+            {flavor.desc}
+          </p>
           <div className="mt-5">
             <SourMeter level={flavor.sour} />
           </div>
@@ -201,8 +199,9 @@ export function Flavors() {
   const reducedMotion = useReducedMotion()
   const pinned = isDesktop && !reducedMotion
 
-  useGSAP(
-    () => {
+  useGsapSetup(
+    root,
+    (gsap) => {
       if (!pinned || !trackRef.current || !pinRef.current) return
       const track = trackRef.current
       const distance = () => track.scrollWidth - window.innerWidth
@@ -252,7 +251,7 @@ export function Flavors() {
         }
       })
     },
-    { scope: root, dependencies: [pinned] },
+    [pinned],
   )
 
   return (
@@ -265,7 +264,7 @@ export function Flavors() {
         <h2 className="mt-4 font-display text-5xl font-extrabold leading-none tracking-tight md:text-7xl">
           FOUR FLAVORS,
           <br />
-          <span className="text-pink">ZERO CHILL.</span>
+          <span className="text-pink-deep">ZERO CHILL.</span>
         </h2>
         <p className="mt-4 max-w-md font-body text-lg font-medium">
           Every can is its own little world. {pinned ? 'Keep scrolling to meet them all.' : 'Swipe to meet them all. →'}

@@ -7,8 +7,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return
+          if (id.includes('three')) return 'three'
+          if (id.includes('gsap')) return 'gsap'
+          return 'vendor'
         },
       },
     },

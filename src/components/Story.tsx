@@ -1,11 +1,7 @@
 import { useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
+import { useGsapSetup } from '../anim'
 import { useReducedMotion } from '../hooks'
 import { Remi, Kori, Ichigo, Sparkle, Heart, Squiggle, WaveDivider } from '../art'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const INK = 'var(--color-ink)'
 
@@ -109,8 +105,9 @@ export function Story() {
   const root = useRef<HTMLElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
-    () => {
+  useGsapSetup(
+    root,
+    (gsap) => {
       if (reducedMotion) return
 
       gsap.from('.story-line', {
@@ -148,7 +145,7 @@ export function Story() {
         scrollTrigger: { trigger: '.story-quote', start: 'top 85%' },
       })
     },
-    { scope: root, dependencies: [reducedMotion] },
+    [reducedMotion],
   )
 
   return (
@@ -223,9 +220,9 @@ export function Story() {
         <div className="story-quote relative mx-auto mt-20 max-w-2xl -rotate-2 md:mt-28">
           <blockquote className="rounded-[2.5rem] border-3 border-ink bg-cream px-8 py-8 text-center sticker-shadow-lg md:px-14 md:py-10">
             <p className="font-display text-4xl font-extrabold leading-tight md:text-6xl">
-              “Cute is a <span className="text-pink">flavor</span>.”
+              “Cute is a <span className="text-pink-deep">flavor</span>.”
             </p>
-            <footer className="mt-3 font-body text-base font-bold text-ink/70">— Remi, probably・レミ</footer>
+            <footer className="mt-3 font-body text-base font-bold text-ink/90">— Remi, probably・レミ</footer>
           </blockquote>
           {/* speech tail */}
           <span aria-hidden="true" className="absolute -bottom-5 left-16 h-10 w-10 rotate-45 border-b-3 border-r-3 border-ink bg-cream" />

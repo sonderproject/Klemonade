@@ -31,7 +31,7 @@ export function Nav() {
 
         <a
           href="#find-us"
-          className="btn-puffy flex min-h-11 items-center bg-pink px-5 font-display text-lg font-extrabold text-cream md:px-6"
+          className="btn-puffy flex min-h-11 items-center bg-lemon px-5 font-display text-lg font-extrabold text-ink md:px-6"
         >
           Order&nbsp;<span aria-hidden="true">🍋</span>
         </a>

@@ -2,10 +2,10 @@ import { Marquee } from './Marquee'
 import { Remi, Sparkle } from '../art'
 
 const SOCIALS = [
-  { label: 'Instagram', short: 'IG', bg: 'bg-pink', text: 'text-cream' },
-  { label: 'TikTok', short: 'TT', bg: 'bg-sky', text: 'text-ink' },
-  { label: 'YouTube', short: 'YT', bg: 'bg-tang', text: 'text-cream' },
-  { label: 'X', short: 'X', bg: 'bg-lemon', text: 'text-ink' },
+  { label: 'Instagram', short: 'IG', bg: 'bg-pink-soft' },
+  { label: 'TikTok', short: 'TT', bg: 'bg-sky' },
+  { label: 'YouTube', short: 'YT', bg: 'bg-tang' },
+  { label: 'X', short: 'X', bg: 'bg-lemon' },
 ]
 
 export function Footer() {
@@ -33,8 +33,8 @@ export function Footer() {
             <a
               key={s.label}
               href="#top"
-              aria-label={s.label}
-              className={`flex h-12 w-12 items-center justify-center rounded-full border-3 border-cream font-display text-base font-extrabold sticker-shadow-sm hover-wiggle ${s.bg} ${s.text}`}
+              aria-label={`${s.short} — ${s.label}`}
+              className={`flex h-12 w-12 items-center justify-center rounded-full border-3 border-cream font-display text-base font-extrabold text-ink sticker-shadow-sm hover-wiggle ${s.bg}`}
             >
               {s.short}
             </a>
@@ -42,7 +42,7 @@ export function Footer() {
         </nav>
       </div>
 
-      <div className="mt-6 flex items-center justify-center gap-4 px-5 font-body text-xs font-semibold text-cream/50 md:text-sm">
+      <div className="mt-6 flex items-center justify-center gap-4 px-5 font-body text-xs font-semibold text-cream/70 md:text-sm">
         <span>© 2026 K Lemonade</span>
         <Sparkle className="w-3" fill="var(--color-lemon)" />
         <span>Stay juicy・またね！</span>

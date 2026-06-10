@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
+import { useGsapSetup } from '../anim'
 import { useIsDesktop, useReducedMotion } from '../hooks'
 import { Remi, Kori, Ichigo, Sparkle, LemonSlice, Heart } from '../art'
 import { Marquee } from './Marquee'
@@ -62,8 +61,9 @@ export function Hero() {
     }
   }, [useScene])
 
-  useGSAP(
-    () => {
+  useGsapSetup(
+    root,
+    (gsap) => {
       if (reducedMotion) return
       const tl = gsap.timeline({ defaults: { ease: 'back.out(1.9)' } })
       tl.from('.hero-char', {
@@ -77,7 +77,7 @@ export function Hero() {
         .from('.hero-cta', { scale: 0, rotation: -8, duration: 0.45, stagger: 0.12 }, '-=0.25')
         .from('.hero-badge', { scale: 0, rotation: 25, duration: 0.5, stagger: 0.15 }, '-=0.4')
     },
-    { scope: root, dependencies: [reducedMotion] },
+    [reducedMotion],
   )
 
   return (
@@ -130,14 +130,14 @@ export function Hero() {
 
         <p className="hero-sub mt-6 max-w-md font-body text-lg font-medium md:text-xl">
           Kawaii lemonade with West Coast sunshine in every can.
-          Meet <span className="font-bold text-pink-deep">Remi</span> — your new juiciest friend.
+          Meet <span className="px-0.5 font-bold [background:linear-gradient(transparent_55%,var(--color-lemon)_55%)]">Remi</span> — your new juiciest friend.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <span className="hero-cta inline-block">
             <a
               href="#find-us"
-              className="btn-puffy pointer-events-auto flex min-h-12 items-center bg-pink px-8 font-display text-xl font-extrabold text-cream"
+              className="btn-puffy pointer-events-auto flex min-h-12 items-center bg-pink px-8 font-display text-xl font-extrabold text-ink"
             >
               Find a Stand
             </a>
@@ -155,7 +155,7 @@ export function Hero() {
 
       {/* corner stickers */}
       <div className="hero-badge absolute bottom-36 right-4 z-10 rotate-6 md:bottom-40 md:right-12">
-        <div className="flex h-24 w-24 flex-col items-center justify-center rounded-full border-3 border-ink bg-tang text-center font-display text-xs font-extrabold uppercase leading-tight text-cream sticker-shadow hover-wiggle md:h-28 md:w-28 md:text-sm">
+        <div className="flex h-24 w-24 flex-col items-center justify-center rounded-full border-3 border-ink bg-tang text-center font-display text-xs font-extrabold uppercase leading-tight text-ink sticker-shadow hover-wiggle md:h-28 md:w-28 md:text-sm">
           <span>100%</span>
           <span>Real</span>
           <span>Lemons</span>
@@ -168,7 +168,7 @@ export function Hero() {
       {/* bottom marquee strip */}
       <Marquee
         items={['K LEMONADE', 'レモネード', 'SQUEEZE THE DAY', 'すっぱい！', 'WEST COAST KAWAII']}
-        className="relative z-10 -rotate-1 border-y-3 border-ink bg-pink py-3 font-display text-xl font-extrabold uppercase text-cream md:text-2xl"
+        className="relative z-10 -rotate-1 border-y-3 border-ink bg-pink py-3 font-display text-xl font-extrabold uppercase text-ink md:text-2xl"
       />
     </section>
   )

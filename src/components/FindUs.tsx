@@ -1,11 +1,7 @@
 import { useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
+import { useGsapSetup } from '../anim'
 import { useReducedMotion } from '../hooks'
 import { Sparkle, LemonSlice, WaveDivider } from '../art'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const INK = 'var(--color-ink)'
 
@@ -62,7 +58,7 @@ function Pin({ spot }: { spot: (typeof SPOTS)[number] }) {
       </svg>
       <div className="mt-1 -rotate-2 rounded-xl border-2 border-ink bg-cream px-2.5 py-1 text-center sticker-shadow-sm">
         <p className="font-display text-xs font-extrabold leading-tight md:text-sm">{spot.name}</p>
-        <p className="font-body text-[10px] font-semibold text-ink/70 md:text-xs">{spot.note}</p>
+        <p className="font-body text-[10px] font-semibold text-ink/90 md:text-xs">{spot.note}</p>
       </div>
     </div>
   )
@@ -72,8 +68,9 @@ export function FindUs() {
   const root = useRef<HTMLElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
-    () => {
+  useGsapSetup(
+    root,
+    (gsap) => {
       if (reducedMotion) return
       gsap.from('.findus-pin', {
         y: -40,
@@ -93,7 +90,7 @@ export function FindUs() {
         scrollTrigger: { trigger: '.findus-cta', start: 'top 85%' },
       })
     },
-    { scope: root, dependencies: [reducedMotion] },
+    [reducedMotion],
   )
 
   return (
@@ -103,11 +100,11 @@ export function FindUs() {
 
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <div className="text-center">
-          <span className="inline-block rotate-1 rounded-full border-3 border-ink bg-pink px-4 py-1.5 font-display text-sm font-extrabold uppercase tracking-wider text-cream sticker-shadow-sm">
+          <span className="inline-block rotate-1 rounded-full border-3 border-ink bg-lemon px-4 py-1.5 font-display text-sm font-extrabold uppercase tracking-wider text-ink sticker-shadow-sm">
             IRL・どこで買える？
           </span>
           <h2 className="mt-4 font-display text-5xl font-extrabold leading-none tracking-tight md:text-7xl">
-            FIND YOUR <span className="text-sky-deep">SQUEEZE.</span>
+            FIND YOUR <span className="text-pink-deep">SQUEEZE.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-md font-body text-lg font-medium">
             Catch us around LA — follow the sparkles (and the line of happy people).
@@ -120,7 +117,7 @@ export function FindUs() {
           {SPOTS.map((spot) => (
             <Pin key={spot.name} spot={spot} />
           ))}
-          <span className="absolute bottom-4 right-5 -rotate-2 font-display text-xs font-extrabold uppercase tracking-wider text-ink/50 md:text-sm">
+          <span className="absolute bottom-4 right-5 -rotate-2 font-display text-xs font-extrabold uppercase tracking-wider text-ink/90 md:text-sm">
             not to scale, obviously ☆
           </span>
         </div>
@@ -137,11 +134,11 @@ export function FindUs() {
           </p>
           <a
             href="#top"
-            className="btn-puffy mt-6 inline-flex min-h-13 items-center bg-pink px-10 font-display text-2xl font-extrabold text-cream"
+            className="btn-puffy mt-6 inline-flex min-h-13 items-center bg-pink px-10 font-display text-2xl font-extrabold text-ink"
           >
             Order Online
           </a>
-          <p className="mt-3 font-body text-sm font-bold text-ink/60">free shipping over $25 ・ stickers always free</p>
+          <p className="mt-3 font-body text-sm font-bold text-ink/90">free shipping over $25 ・ stickers always free</p>
         </div>
       </div>
 
