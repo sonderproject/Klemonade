@@ -115,7 +115,7 @@ export function Hero() {
       {/* headline overlay */}
       <div className="pointer-events-none relative z-10 flex flex-1 flex-col items-center justify-center px-4 pb-40 pt-28 text-center md:pb-44">
         <div className="hero-badge pointer-events-auto mb-5 -rotate-3 rounded-full border-3 border-ink bg-lemon px-4 py-1.5 font-display text-sm font-extrabold uppercase tracking-wider sticker-shadow-sm md:text-base">
-          ☀️ Sun-squeezed in California
+          ☀️ Sun-squeezed in San Diego
         </div>
 
         <h1 className="font-display font-extrabold leading-[0.92] tracking-tight">
@@ -129,7 +129,7 @@ export function Hero() {
         </h1>
 
         <p className="hero-sub mt-6 max-w-md font-body text-lg font-medium md:text-xl">
-          Kawaii lemonade with West Coast sunshine in every can.
+          Kawaii lemonade squeezed fresh by the cup at San Diego farmers markets.
           Meet <span className="px-0.5 font-bold [background:linear-gradient(transparent_55%,var(--color-lemon)_55%)]">Remi</span> — your new juiciest friend.
         </p>
 
@@ -139,7 +139,7 @@ export function Hero() {
               href="#find-us"
               className="btn-puffy pointer-events-auto flex min-h-12 items-center bg-pink px-8 font-display text-xl font-extrabold text-ink"
             >
-              Find a Stand
+              Find Us This Week
             </a>
           </span>
           <span className="hero-cta inline-block">
@@ -167,7 +167,7 @@ export function Hero() {
 
       {/* bottom marquee strip */}
       <Marquee
-        items={['K LEMONADE', 'レモネード', 'SQUEEZE THE DAY', 'すっぱい！', 'WEST COAST KAWAII']}
+        items={['K LEMONADE', 'レモネード', 'SQUEEZE THE DAY', 'すっぱい！', 'SAN DIEGO KAWAII']}
         className="relative z-10 -rotate-1 border-y-3 border-ink bg-pink py-3 font-display text-xl font-extrabold uppercase text-ink md:text-2xl"
       />
     </section>

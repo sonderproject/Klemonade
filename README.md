@@ -1,8 +1,15 @@
 # K Lemonade 🍋
 
-Single-page marketing site for **K Lemonade** — West Coast summer meets Japanese
-urban kawaii. Starring **Remi** (レミ), our original lemon mascot, plus Kori the
-ice cube and Ichigo the strawberry. All art is hand-drawn inline SVG.
+Single-page marketing site for **K Lemonade** — fresh-squeezed kawaii lemonade
+served by the cup at San Diego farmers markets. Starring **Remi** (レミ), our
+original lemon mascot, plus Kori the ice cube and Ichigo the strawberry.
+Illustrations are hand-drawn inline SVG; the logo lockup and cup photos are
+client assets (processed via `scripts/prep-assets.mjs` from the originals at the
+repo root — `IMG_6974.png` is the old sticker sheet, reference only, never shown
+on the site).
+
+> TODO(confirm with client): final flavor lineup (`src/components/Flavors.tsx`)
+> and the farmers-market schedule placeholders (`src/components/FindUs.tsx`).
 
 ## Stack
 
@@ -10,6 +17,7 @@ ice cube and Ichigo the strawberry. All art is hand-drawn inline SVG.
 - **Tailwind CSS v4** — fully custom theme (palette, fonts, sticker shadows, puffy buttons, halftone/checker textures)
 - **GSAP + ScrollTrigger** — loaded dynamically at browser idle (`src/anim.ts`), never in the critical bundle
 - **three.js + react-three-fiber** — hero 3D scene, lazy-loaded on desktop only
+- **Leaflet + OpenStreetMap** — Find Us map (no API key), lazy-initialized via IntersectionObserver
 
 ## Commands
 
@@ -49,12 +57,12 @@ Lighthouse (mobile emulation, preview build): **Performance 95 · Accessibility 
 
 | Section | File | Notes |
 |---|---|---|
-| Nav | `components/Nav.tsx` | pill bar, puffy CTA |
-| Hero | `components/Hero.tsx` + `HeroScene.tsx` | 3D cans/lemons, split-char intro, marquee |
-| Flavors | `components/Flavors.tsx` | 4 color worlds, parametric `LemonCan` art |
-| Story | `components/Story.tsx` | editorial type + parallax polaroid collage |
-| Find Us | `components/FindUs.tsx` | hand-drawn map, bouncing pins, order CTA |
-| Footer | `components/Footer.tsx` | cropped giant wordmark, fast marquee |
+| Nav | `components/Nav.tsx` | logo lockup, puffy CTA |
+| Hero | `components/Hero.tsx` + `HeroScene.tsx` | 3D cup/lemons, split-char intro, marquee |
+| Flavors | `components/Flavors.tsx` | 7 color worlds (the menu), parametric `LemonadeCup` art |
+| Story | `components/Story.tsx` | editorial type + polaroid collage with real cup photos |
+| Find Us | `components/FindUs.tsx` | Leaflet/OSM map of SD farmers markets + schedule cards |
+| Footer | `components/Footer.tsx` | logo chip, cropped giant wordmark, fast marquee |
 | Extras | `StickyCTA.tsx`, `SparkleCursor.tsx` | mobile CTA, desktop sparkle trail |
 
 Brand tokens (colors, fonts, keyframes, utilities like `sticker-shadow`,

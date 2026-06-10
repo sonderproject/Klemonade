@@ -1,5 +1,6 @@
 import { Marquee } from './Marquee'
-import { Remi, Sparkle } from '../art'
+import { Sparkle } from '../art'
+import logoLockup from '../assets/logo-lockup.png'
 
 const SOCIALS = [
   { label: 'Instagram', short: 'IG', bg: 'bg-pink-soft' },
@@ -19,12 +20,11 @@ export function Footer() {
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-5 pt-14 md:flex-row md:items-end md:justify-between md:px-8">
         <div className="text-center md:text-left">
-          <div className="flex items-center justify-center gap-3 md:justify-start">
-            <Remi className="w-16 -rotate-6" />
-            <p className="font-jp text-xl text-lemon">レモネード</p>
+          <div className="inline-block -rotate-2 rounded-2xl border-3 border-ink bg-cream px-4 py-2.5 sticker-shadow">
+            <img src={logoLockup} alt="K'Lemonade" className="h-9 w-auto md:h-10" width="720" height="167" />
           </div>
           <p className="mt-4 max-w-xs font-body text-sm font-medium text-cream/70">
-            Made with real fruit and unreasonable amounts of joy in Los Angeles, CA.
+            Made with real fruit and unreasonable amounts of joy in San Diego, CA.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export function Footer() {
         <Sparkle className="w-3" fill="var(--color-lemon)" />
         <span>Stay juicy・またね！</span>
         <Sparkle className="w-3" fill="var(--color-pink)" />
-        <span>100% recyclable cans</span>
+        <span>fresh-squeezed, always</span>
       </div>
 
       {/* oversized cropped wordmark */}

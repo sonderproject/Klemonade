@@ -26,7 +26,7 @@ export function StickyCTA() {
         href="#find-us"
         className="btn-puffy flex min-h-13 items-center justify-center bg-pink font-display text-xl font-extrabold text-ink"
       >
-        Find a Stand 🍋
+        Find Us This Week 🍋
       </a>
     </div>
   )

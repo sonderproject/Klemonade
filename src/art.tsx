@@ -140,70 +140,99 @@ export function Heart({ className, fill = 'var(--color-pink)' }: ArtProps & { fi
   )
 }
 
-/** Parametric lemonade can — each flavor recolors the body and label face. */
-export function LemonCan({
+/**
+ * Parametric lemonade cup — clear plastic, a flavor swirl layered over the
+ * lemonade base (just like the real pours), round sticker label, ice + wheel.
+ */
+export function LemonadeCup({
   className,
-  body,
-  bodyDeep,
+  drink,
+  accent,
   face,
   mood = 'happy',
 }: ArtProps & {
-  body: string
-  bodyDeep: string
+  drink: string
+  accent: string
   face: string
   mood?: 'happy' | 'wow' | 'wink'
 }) {
   return (
     <svg viewBox="0 0 170 250" className={className} aria-hidden="true">
-      {/* body */}
+      {/* straw */}
+      <path d="M104 38 L122 -6" stroke={INK} strokeWidth="15" strokeLinecap="round" />
+      <path d="M104 38 L122 -6" stroke="var(--color-sky)" strokeWidth="9" strokeLinecap="round" />
+      {/* plastic cup body */}
       <path
-        d="M25 36 L145 36 L145 196 Q145 230 85 230 Q25 230 25 196 Z"
-        fill={body} stroke={INK} strokeWidth="6" strokeLinejoin="round"
+        d="M25 44 L39 212 Q41 232 62 232 L108 232 Q129 232 131 212 L145 44 Z"
+        fill="#ffffff" opacity="0.55"
       />
-      {/* side sheen */}
-      <path d="M38 52 L38 92" stroke="#fff" strokeWidth="9" strokeLinecap="round" opacity="0.5" />
-      {/* label band */}
+      {/* flavor swirl layer */}
       <path
-        d="M25 96 Q85 108 145 96 L145 158 Q85 170 25 158 Z"
-        fill="var(--color-cream)" stroke={INK} strokeWidth="5" strokeLinejoin="round"
+        d="M33 72 Q85 82 137 72 L130 150 Q110 159 85 151 Q60 143 40 151 Z"
+        fill={drink}
       />
-      {/* label face */}
-      <circle cx="85" cy="132" r="22" fill={face} stroke={INK} strokeWidth="5" />
+      {/* lemonade base layer */}
+      <path
+        d="M40 151 Q60 143 85 151 Q110 159 130 150 L125 212 Q123 226 106 226 L64 226 Q47 226 45 212 Z"
+        fill="var(--color-lemon-soft)"
+      />
+      {/* condensation sheen */}
+      <path d="M40 70 L50 190" stroke="#fff" strokeWidth="8" strokeLinecap="round" opacity="0.45" />
+      <circle cx="118" cy="100" r="3" fill="#fff" opacity="0.5" />
+      <circle cx="112" cy="124" r="2.2" fill="#fff" opacity="0.5" />
+      {/* round sticker label (like the IRL cup stickers) */}
+      <circle cx="85" cy="150" r="28" fill="var(--color-cream)" stroke={INK} strokeWidth="4" />
+      <circle cx="85" cy="148" r="19" fill={face} stroke={INK} strokeWidth="4" />
       {mood === 'happy' && (
         <g stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none">
-          <path d="M74 129 q4.5 -5.5 9 0" />
-          <path d="M88 129 q4.5 -5.5 9 0" />
-          <path d="M81 138 q4 5 8 0" />
+          <path d="M75 145 q4.5 -5.5 9 0" />
+          <path d="M88 145 q4.5 -5.5 9 0" />
+          <path d="M81 154 q4 5 8 0" />
         </g>
       )}
       {mood === 'wow' && (
         <g>
-          <circle cx="78" cy="128" r="3.2" fill={INK} />
-          <circle cx="92" cy="128" r="3.2" fill={INK} />
-          <ellipse cx="85" cy="139" rx="4.5" ry="5.5" fill={INK} />
+          <circle cx="78" cy="144" r="3.2" fill={INK} />
+          <circle cx="92" cy="144" r="3.2" fill={INK} />
+          <ellipse cx="85" cy="155" rx="4.5" ry="5.5" fill={INK} />
         </g>
       )}
       {mood === 'wink' && (
         <g>
-          <circle cx="78" cy="128" r="3.2" fill={INK} />
-          <path d="M88 128 q4.5 -5 9 0" stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none" />
-          <path d="M80 137 q5 6 10 0" stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none" />
+          <circle cx="78" cy="144" r="3.2" fill={INK} />
+          <path d="M88 144 q4.5 -5 9 0" stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none" />
+          <path d="M80 153 q5 6 10 0" stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none" />
         </g>
       )}
-      <ellipse cx="69" cy="135" rx="4.5" ry="3" fill="var(--color-pink)" opacity="0.6" />
-      <ellipse cx="101" cy="135" rx="4.5" ry="3" fill="var(--color-pink)" opacity="0.6" />
-      {/* label stars */}
-      <path d="M44 124 l3 7 7 1 -5 5 1.4 7 -6.4 -3.6 -6.4 3.6 1.4 -7 -5 -5 7 -1 Z" fill={bodyDeep} opacity="0.85" />
-      <path d="M126 124 l3 7 7 1 -5 5 1.4 7 -6.4 -3.6 -6.4 3.6 1.4 -7 -5 -5 7 -1 Z" fill={bodyDeep} opacity="0.85" />
-      {/* bottom rim */}
-      <path d="M25 196 Q85 214 145 196 Q145 230 85 230 Q25 230 25 196 Z" fill={bodyDeep} stroke={INK} strokeWidth="6" strokeLinejoin="round" />
-      {/* lid */}
-      <ellipse cx="85" cy="36" rx="60" ry="16" fill="#f3e9d2" stroke={INK} strokeWidth="6" />
-      <ellipse cx="85" cy="34" rx="44" ry="10" fill="none" stroke={INK} strokeWidth="3.5" opacity="0.5" />
-      <rect x="74" y="26" width="22" height="9" rx="4.5" fill="#f3e9d2" stroke={INK} strokeWidth="3.5" />
-      {/* straw */}
-      <path d="M108 28 L124 -8" stroke={INK} strokeWidth="15" strokeLinecap="round" />
-      <path d="M108 28 L124 -8" stroke="var(--color-sky)" strokeWidth="9" strokeLinecap="round" />
+      <ellipse cx="71" cy="151" rx="4" ry="2.8" fill="var(--color-pink)" opacity="0.6" />
+      <ellipse cx="99" cy="151" rx="4" ry="2.8" fill="var(--color-pink)" opacity="0.6" />
+      <path d="M85 173 l1.6 3.8 3.8 0.5 -2.7 2.7 0.8 3.8 -3.5 -2 -3.5 2 0.8 -3.8 -2.7 -2.7 3.8 -0.5 Z" fill={accent} />
+      {/* cup outline */}
+      <path
+        d="M25 44 L39 212 Q41 232 62 232 L108 232 Q129 232 131 212 L145 44"
+        fill="none" stroke={INK} strokeWidth="6" strokeLinejoin="round"
+      />
+      {/* ice peeking over the rim */}
+      <rect x="58" y="22" width="22" height="22" rx="7" fill={accent} opacity="0.85" stroke={INK} strokeWidth="3.5" transform="rotate(-12 69 33)" />
+      <rect x="92" y="18" width="20" height="20" rx="6.5" fill="var(--color-sky-soft)" stroke={INK} strokeWidth="3.5" transform="rotate(10 102 28)" />
+      {/* rim */}
+      <ellipse cx="85" cy="44" rx="60" ry="13" fill="#fff" opacity="0.8" />
+      <ellipse cx="85" cy="44" rx="60" ry="13" fill="none" stroke={INK} strokeWidth="5" />
+      <ellipse cx="85" cy="44" rx="48" ry="8.5" fill="none" stroke={INK} strokeWidth="2.5" opacity="0.4" />
+      {/* lemon wheel on the rim */}
+      <g transform="translate(42 32)">
+        <circle r="20" fill="var(--color-lemon)" stroke={INK} strokeWidth="4.5" />
+        <circle r="14" fill="var(--color-cream)" />
+        <g stroke="var(--color-lemon-deep)" strokeWidth="3" strokeLinecap="round">
+          <line x1="4" y1="0" x2="12" y2="0" />
+          <line x1="2" y1="3.5" x2="6" y2="10.4" />
+          <line x1="-2" y1="3.5" x2="-6" y2="10.4" />
+          <line x1="-4" y1="0" x2="-12" y2="0" />
+          <line x1="-2" y1="-3.5" x2="-6" y2="-10.4" />
+          <line x1="2" y1="-3.5" x2="6" y2="-10.4" />
+        </g>
+        <circle r="2.6" fill="var(--color-lemon-deep)" />
+      </g>
     </svg>
   )
 }

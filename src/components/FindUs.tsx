@@ -1,93 +1,106 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import type { Map as LeafletMap } from 'leaflet'
 import { useGsapSetup } from '../anim'
 import { useReducedMotion } from '../hooks'
 import { Sparkle, LemonSlice, WaveDivider } from '../art'
 
-const INK = 'var(--color-ink)'
-
-const SPOTS: { name: string; note: string; x: string; y: string; color: string }[] = [
-  { name: 'Venice Boardwalk', note: 'OG stand・since day one', x: '12%', y: '58%', color: 'var(--color-pink)' },
-  { name: 'Santa Monica Pier', note: 'weekends + sunsets', x: '30%', y: '24%', color: 'var(--color-tang)' },
-  { name: 'Silver Lake', note: 'farmers market sat.', x: '56%', y: '14%', color: 'var(--color-sky-deep)' },
-  { name: 'Little Tokyo', note: 'pop-up・ポップアップ', x: '72%', y: '52%', color: 'var(--color-pink-deep)' },
+// PLACEHOLDER schedule — replace with the client's confirmed markets/hours.
+const MARKETS = [
+  {
+    name: 'Hillcrest Farmers Market',
+    day: 'Sundays',
+    hours: '9:00am – 2:00pm',
+    address: '3960 Normal St, San Diego, CA',
+    coords: [32.7489, -117.1515] as [number, number],
+    color: 'var(--color-pink)',
+    badge: 'bg-lemon',
+  },
+  {
+    name: 'Little Italy Mercato',
+    day: 'Saturdays',
+    hours: '8:00am – 2:00pm',
+    address: '501 W Date St, San Diego, CA',
+    coords: [32.7221, -117.1714] as [number, number],
+    color: 'var(--color-tang)',
+    badge: 'bg-tang',
+  },
+  {
+    name: 'Pacific Beach Farmers Market',
+    day: 'Tuesdays',
+    hours: '2:00pm – 6:00pm',
+    address: 'Bayard St at Garnet Ave, San Diego, CA',
+    coords: [32.7975, -117.2517] as [number, number],
+    color: 'var(--color-sky-deep)',
+    badge: 'bg-sky',
+  },
 ]
 
-/** Hand-drawn map doodles behind the pins */
-function MapDoodle() {
-  return (
-    <svg viewBox="0 0 600 360" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden="true">
-      {/* roads */}
-      <g stroke={INK} strokeWidth="4" strokeDasharray="12 10" strokeLinecap="round" fill="none" opacity="0.35">
-        <path d="M-10 240 Q150 180 300 220 Q450 260 610 190" />
-        <path d="M120 -10 Q160 120 90 250 Q60 310 110 370" />
-        <path d="M420 -10 Q380 110 460 200 Q520 270 480 370" />
-      </g>
-      {/* ocean corner */}
-      <g stroke="var(--color-sky-deep)" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.7">
-        <path d="M10 320 q15 -12 30 0 q15 12 30 0" />
-        <path d="M30 345 q15 -12 30 0 q15 12 30 0" />
-      </g>
-      {/* sun */}
-      <circle cx="544" cy="46" r="22" fill="var(--color-lemon)" stroke={INK} strokeWidth="4.5" />
-      <g stroke={INK} strokeWidth="4" strokeLinecap="round">
-        <line x1="544" y1="10" x2="544" y2="18" />
-        <line x1="516" y1="22" x2="522" y2="28" />
-        <line x1="572" y1="22" x2="566" y2="28" />
-      </g>
-      {/* palm */}
-      <g transform="translate(60 80)">
-        <path d="M0 60 Q6 28 4 6" stroke={INK} strokeWidth="6" strokeLinecap="round" fill="none" />
-        <g fill="var(--color-mint)" stroke={INK} strokeWidth="4" strokeLinejoin="round">
-          <path d="M4 8 Q-22 -8 -40 6 Q-18 14 4 8 Z" />
-          <path d="M4 8 Q30 -8 48 6 Q26 14 4 8 Z" />
-          <path d="M4 8 Q0 -22 -14 -30 Q-4 -8 4 8 Z" />
-          <path d="M4 8 Q12 -22 26 -28 Q12 -6 4 8 Z" />
-        </g>
-      </g>
-    </svg>
-  )
-}
-
-function Pin({ spot }: { spot: (typeof SPOTS)[number] }) {
-  return (
-    <div className="findus-pin group absolute -translate-x-1/2 -translate-y-full" style={{ left: spot.x, top: spot.y }}>
-      <svg viewBox="0 0 48 60" className="mx-auto w-9 drop-shadow-[2px_3px_0_rgba(67,39,59,0.3)] transition-transform group-hover:-translate-y-1 md:w-11" aria-hidden="true">
-        <path d="M24 58 C10 40 3 30 3 21 A21 21 0 0 1 45 21 C45 30 38 40 24 58 Z" fill={spot.color} stroke={INK} strokeWidth="4" strokeLinejoin="round" />
-        <circle cx="24" cy="21" r="9" fill="var(--color-cream)" stroke={INK} strokeWidth="3.5" />
-        <circle cx="24" cy="21" r="4.5" fill="var(--color-lemon)" stroke={INK} strokeWidth="2.5" />
-      </svg>
-      <div className="mt-1 -rotate-2 rounded-xl border-2 border-ink bg-cream px-2.5 py-1 text-center sticker-shadow-sm">
-        <p className="font-display text-xs font-extrabold leading-tight md:text-sm">{spot.name}</p>
-        <p className="font-body text-[10px] font-semibold text-ink/90 md:text-xs">{spot.note}</p>
-      </div>
-    </div>
-  )
-}
+/** Brand map pin rendered as a Leaflet divIcon. */
+const pinSvg = (color: string) => `
+<svg viewBox="0 0 48 60" width="38" height="48" style="filter:drop-shadow(2px 3px 0 rgba(67,39,59,0.3))">
+  <path d="M24 58 C10 40 3 30 3 21 A21 21 0 0 1 45 21 C45 30 38 40 24 58 Z" fill="${color}" stroke="#43273B" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="24" cy="21" r="9" fill="#FFF7E0" stroke="#43273B" stroke-width="3.5"/>
+  <circle cx="24" cy="21" r="4.5" fill="#FFE14D" stroke="#43273B" stroke-width="2.5"/>
+</svg>`
 
 export function FindUs() {
   const root = useRef<HTMLElement>(null)
+  const mapEl = useRef<HTMLDivElement>(null)
   const reducedMotion = useReducedMotion()
+
+  // Lazy-init Leaflet only when the section approaches the viewport.
+  useEffect(() => {
+    let map: LeafletMap | null = null
+    let cancelled = false
+    const el = mapEl.current
+    if (!el) return
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return
+        io.disconnect()
+        void Promise.all([import('leaflet'), import('leaflet/dist/leaflet.css')]).then(([{ default: L }]) => {
+          if (cancelled || !mapEl.current) return
+          map = L.map(mapEl.current, { scrollWheelZoom: false, attributionControl: true })
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          }).addTo(map)
+          const bounds = L.latLngBounds(MARKETS.map((m) => m.coords))
+          map.fitBounds(bounds, { padding: [44, 44] })
+          for (const m of MARKETS) {
+            L.marker(m.coords, {
+              icon: L.divIcon({ html: pinSvg(m.color), className: '', iconSize: [38, 48], iconAnchor: [19, 48] }),
+              alt: m.name,
+            })
+              .addTo(map)
+              .bindPopup(`<b>${m.name}</b><br>${m.day} · ${m.hours}`)
+          }
+        })
+      },
+      { rootMargin: '400px' },
+    )
+    io.observe(el)
+
+    return () => {
+      cancelled = true
+      io.disconnect()
+      map?.remove()
+    }
+  }, [])
 
   useGsapSetup(
     root,
     (gsap) => {
       if (reducedMotion) return
-      gsap.from('.findus-pin', {
-        y: -40,
+      gsap.from('.findus-card', {
+        y: 50,
         opacity: 0,
-        scale: 0.3,
+        scale: 0.8,
         duration: 0.55,
-        ease: 'bounce.out',
-        stagger: 0.15,
-        scrollTrigger: { trigger: '.findus-map', start: 'top 70%' },
-      })
-      gsap.from('.findus-cta', {
-        scale: 0.6,
-        opacity: 0,
-        rotation: 4,
-        duration: 0.6,
         ease: 'back.out(1.7)',
-        scrollTrigger: { trigger: '.findus-cta', start: 'top 85%' },
+        stagger: 0.15,
+        scrollTrigger: { trigger: '.findus-grid', start: 'top 75%' },
       })
     },
     [reducedMotion],
@@ -107,45 +120,56 @@ export function FindUs() {
             FIND YOUR <span className="text-pink-deep">SQUEEZE.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-md font-body text-lg font-medium">
-            Catch us around LA — follow the sparkles (and the line of happy people).
+            Catch us at San Diego farmers markets — follow the sparkles (and the line of happy people).
           </p>
         </div>
 
-        {/* the map */}
-        <div className="findus-map relative mx-auto mt-12 h-105 max-w-3xl rounded-[2rem] border-3 border-ink bg-cream sticker-shadow-lg md:h-120 md:rounded-[3rem]">
-          <MapDoodle />
-          {SPOTS.map((spot) => (
-            <Pin key={spot.name} spot={spot} />
-          ))}
-          <span className="absolute bottom-4 right-5 -rotate-2 font-display text-xs font-extrabold uppercase tracking-wider text-ink/90 md:text-sm">
-            not to scale, obviously ☆
-          </span>
+        {/* map + weekly schedule */}
+        <div className="findus-grid mt-12 flex flex-col gap-6 md:flex-row md:items-stretch">
+          <div className="relative min-h-80 overflow-hidden rounded-[2rem] border-3 border-ink bg-cream sticker-shadow-lg md:w-3/5 md:min-h-105 md:rounded-[3rem]">
+            <div
+              ref={mapEl}
+              className="absolute inset-0 z-0"
+              role="region"
+              aria-label="Map of San Diego farmers markets where K Lemonade pops up"
+            />
+            <span className="pointer-events-none absolute right-4 top-3 z-[500] -rotate-2 rounded-full border-2 border-ink bg-lemon px-3 py-1 font-display text-xs font-extrabold uppercase tracking-wider sticker-shadow-sm md:text-sm">
+              this week ☆ 今週
+            </span>
+          </div>
+
+          <ul className="flex flex-col justify-center gap-4 md:w-2/5">
+            {MARKETS.map((m, i) => (
+              <li
+                key={m.name}
+                className={`findus-card rounded-3xl border-3 border-ink bg-cream px-5 py-4 sticker-shadow ${i % 2 ? 'rotate-1' : '-rotate-1'}`}
+              >
+                <span
+                  className={`inline-block rounded-full border-2 border-ink px-3 py-0.5 font-display text-xs font-extrabold uppercase tracking-wider text-ink ${m.badge}`}
+                >
+                  {m.day}
+                </span>
+                <p className="mt-2 font-display text-xl font-extrabold leading-tight md:text-2xl">{m.name}</p>
+                <p className="mt-1 font-body text-sm font-bold">{m.hours}</p>
+                <p className="font-body text-sm font-medium text-ink/90">{m.address}</p>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* order CTA */}
-        <div className="findus-cta relative mx-auto mt-16 max-w-xl -rotate-1 rounded-[2.5rem] border-3 border-ink bg-lemon px-6 py-9 text-center sticker-shadow-lg md:px-12">
-          <Sparkle className="absolute -left-5 -top-5 w-12 hover-wiggle" fill="var(--color-pink)" />
-          <Sparkle className="absolute -bottom-4 -right-4 w-9 hover-wiggle" fill="var(--color-sky)" />
-          <h3 className="font-display text-3xl font-extrabold leading-tight md:text-4xl">
-            Not in LA? <span className="text-pink-deep">We ship.</span>
-          </h3>
-          <p className="mt-2 font-body text-base font-medium md:text-lg">
-            Four-packs, merch, and a mystery sticker in every single box. それ、かわいい！
-          </p>
-          <a
-            href="#top"
-            className="btn-puffy mt-6 inline-flex min-h-13 items-center bg-pink px-10 font-display text-2xl font-extrabold text-ink"
-          >
-            Order Online
-          </a>
-          <p className="mt-3 font-body text-sm font-bold text-ink/90">free shipping over $25 ・ stickers always free</p>
-        </div>
+        <p className="mx-auto mt-10 max-w-xl text-center font-body text-base font-medium">
+          Schedule shifts with the seasons — check our socials (down below ↓) before you roll up.
+          Fresh cups while the lemons last. それ、かわいい！
+        </p>
       </div>
 
       {/* wave into footer */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0">
         <WaveDivider fill="var(--color-ink)" className="h-10 md:h-16" />
       </div>
+
+      <Sparkle className="absolute bottom-24 left-[6%] w-8 hover-wiggle md:w-12" fill="var(--color-pink)" />
+      <Sparkle className="absolute right-[8%] top-32 w-7 hover-wiggle md:w-10" fill="var(--color-tang)" />
     </section>
   )
 }

@@ -11,6 +11,7 @@ export default defineConfig({
           if (!id.includes('node_modules')) return
           if (id.includes('three')) return 'three'
           if (id.includes('gsap')) return 'gsap'
+          if (id.includes('leaflet')) return 'leaflet'
           return 'vendor'
         },
       },

@@ -1,7 +1,9 @@
 import { useRef } from 'react'
 import { useGsapSetup } from '../anim'
 import { useReducedMotion } from '../hooks'
-import { Remi, Kori, Ichigo, Sparkle, Heart, Squiggle, WaveDivider } from '../art'
+import { Remi, Sparkle, Heart, Squiggle, WaveDivider } from '../art'
+import photoBluerazzle from '../assets/photo-bluerazzle.jpg'
+import photoCutecumber from '../assets/photo-cutecumber.jpg'
 
 const INK = 'var(--color-ink)'
 
@@ -33,49 +35,6 @@ function SceneStand({ className }: { className?: string }) {
         <path d="M0 0 L22 0 L19 26 L3 26 Z" fill="var(--color-pink-soft)" stroke={INK} strokeWidth="4" strokeLinejoin="round" />
         <line x1="14" y1="2" x2="20" y2="-12" stroke={INK} strokeWidth="4" strokeLinecap="round" />
       </g>
-    </svg>
-  )
-}
-
-/** Polaroid scene: the crew */
-function SceneCrew({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 240 180" className={className} aria-hidden="true">
-      <rect width="240" height="180" fill="var(--color-lemon-soft)" />
-      <g transform="translate(12 48) scale(0.62)">
-        <Remi />
-      </g>
-      <g transform="translate(132 60) scale(0.62)">
-        <Kori />
-      </g>
-      <g transform="translate(182 52) scale(0.55)">
-        <Ichigo />
-      </g>
-      <g transform="translate(140 24) scale(0.3)">
-        <Sparkle />
-      </g>
-      <g transform="translate(28 16) scale(0.22)">
-        <Heart />
-      </g>
-    </svg>
-  )
-}
-
-/** Polaroid scene: golden hour */
-function SceneSunset({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 240 180" className={className} aria-hidden="true">
-      <rect width="240" height="180" fill="var(--color-pink-soft)" />
-      <circle cx="120" cy="92" r="44" fill="var(--color-tang)" stroke={INK} strokeWidth="5" />
-      <path d="M104 88 q6 -8 12 0 M124 88 q6 -8 12 0 M112 102 q8 8 16 0" stroke={INK} strokeWidth="4.5" strokeLinecap="round" fill="none" />
-      <g stroke={INK} strokeWidth="5" strokeLinecap="round">
-        <line x1="120" y1="22" x2="120" y2="36" />
-        <line x1="64" y1="42" x2="74" y2="52" />
-        <line x1="176" y1="42" x2="166" y2="52" />
-        <line x1="48" y1="92" x2="62" y2="92" />
-        <line x1="178" y1="92" x2="192" y2="92" />
-      </g>
-      <path d="M0 150 Q30 138 60 150 Q90 162 120 150 Q150 138 180 150 Q210 162 240 150 L240 180 L0 180 Z" fill="var(--color-sky)" stroke={INK} strokeWidth="5" />
     </svg>
   )
 }
@@ -166,8 +125,8 @@ export function Story() {
           <div className="story-type md:w-1/2">
             <h2 className="font-display font-extrabold leading-[1.02] tracking-tight">
               <span className="story-line block text-4xl md:text-6xl">Born at a</span>
-              <span className="story-line block -rotate-1 text-6xl text-pink text-outline-cream-[0.05em] [text-shadow:0.04em_0.05em_0_var(--color-ink)] md:text-8xl">
-                SoCal stand.
+              <span className="story-line block -rotate-1 text-5xl text-pink text-outline-cream-[0.05em] [text-shadow:0.04em_0.05em_0_var(--color-ink)] md:text-7xl">
+                San Diego stand.
               </span>
               <span className="story-line mt-3 block text-4xl md:text-6xl">Raised on</span>
               <span className="story-line block rotate-1 text-5xl text-sky-deep text-outline-cream-[0.05em] [text-shadow:0.04em_0.05em_0_var(--color-ink)] md:text-7xl">
@@ -184,7 +143,7 @@ export function Story() {
               full of stickers and a brand-new dream.
             </p>
             <p className="story-line mt-4 max-w-md font-body text-lg font-medium leading-relaxed">
-              Now every can gets the full kawaii treatment:
+              Now every cup gets the full kawaii treatment:
               <em className="px-1 font-bold not-italic [background:linear-gradient(transparent_55%,var(--color-pink-soft)_55%)]">
                 real fruit, zero shortcuts
               </em>
@@ -195,23 +154,41 @@ export function Story() {
           </div>
 
           {/* sticker collage */}
-          <div className="relative mx-auto h-[560px] w-full max-w-sm md:w-1/2 md:max-w-none">
+          <div className="relative mx-auto h-[660px] w-full max-w-sm md:h-[700px] md:w-1/2 md:max-w-none">
             <Polaroid
               scene={<SceneStand className="block" />}
               caption="summer no. 1 ☀️ the stand"
               className="absolute left-0 top-0 -rotate-6"
             />
             <Polaroid
-              scene={<SceneCrew className="block" />}
-              caption="the crew・なかま"
-              className="absolute right-0 top-40 rotate-4"
+              scene={
+                <img
+                  src={photoBluerazzle}
+                  alt="A cup of bright teal-blue Bluerazzle lemonade with a lemon wheel and blue ice"
+                  loading="lazy"
+                  width="800"
+                  height="1000"
+                  className="block w-full border-3 border-lemon"
+                />
+              }
+              caption="Bluerazzle, fresh pour・ブルー"
+              className="absolute right-0 top-28 rotate-4"
             />
             <Polaroid
-              scene={<SceneSunset className="block" />}
-              caption="golden hour forever"
+              scene={
+                <img
+                  src={photoCutecumber}
+                  alt="A cup of green Cute-cumber lemonade held up in the sunshine"
+                  loading="lazy"
+                  width="800"
+                  height="998"
+                  className="block w-full border-3 border-lemon"
+                />
+              }
+              caption="Cute-cumber — today’s special・きゅうり"
               className="absolute bottom-0 left-6 -rotate-3 md:left-10"
             />
-            <Sparkle className="absolute -left-4 top-44 w-9" />
+            <Sparkle className="absolute -left-4 top-52 w-9" />
             <Sparkle className="absolute right-2 top-6 w-6" fill="var(--color-tang)" />
           </div>
         </div>

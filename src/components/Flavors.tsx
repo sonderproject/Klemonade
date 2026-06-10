@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useGsapSetup } from '../anim'
 import { useIsDesktop, useReducedMotion } from '../hooks'
-import { LemonCan, LemonSlice, Sparkle, Heart, Kori, Ichigo, Squiggle, WaveDivider } from '../art'
+import { LemonadeCup, LemonSlice, Sparkle, Heart, Kori, Ichigo, Squiggle, WaveDivider } from '../art'
 
 type Flavor = {
   name: string
@@ -11,59 +11,96 @@ type Flavor = {
   sour: number
   bg: string
   deep: string
-  can: { body: string; bodyDeep: string; face: string; mood: 'happy' | 'wow' | 'wink' }
+  cup: { drink: string; accent: string; face: string; mood: 'happy' | 'wow' | 'wink' }
   ingredients: string[]
   deco: 'lemon' | 'pink' | 'sky' | 'tang'
 }
 
+// TODO(confirm with client): final flavor lineup before launch.
 const FLAVORS: Flavor[] = [
   {
-    name: 'OG LEMON',
-    jp: 'レモン',
-    tagline: 'The one that started the party.',
-    desc: 'Hand-squeezed lemons, cane sugar, and absolutely nothing boring. Sunshine you can sip.',
+    name: 'STRAWBEEZY',
+    jp: 'いちご',
+    tagline: 'Strawberry sweet, easy breezy.',
+    desc: 'Crushed strawberries folded into the fresh squeeze. The stand’s forever crush.',
+    sour: 2,
+    bg: '#ff5a6e',
+    deep: '#e03a50',
+    cup: { drink: '#ff7585', accent: '#e03a50', face: '#ffc2ca', mood: 'wow' },
+    ingredients: ['crushed strawberries', 'lemon juice', 'cane sugar'],
+    deco: 'pink',
+  },
+  {
+    name: 'MANGO GO',
+    jp: 'マンゴー',
+    tagline: 'Golden mango on the move.',
+    desc: 'Juicy mango swirled into the classic squeeze. Sunshine with a passport.',
+    sour: 2,
+    bg: 'var(--color-tang)',
+    deep: 'var(--color-tang-deep)',
+    cup: { drink: '#ffb23e', accent: 'var(--color-tang-deep)', face: '#ffd9a3', mood: 'happy' },
+    ingredients: ['ripe mango', 'lemon juice', 'cane sugar'],
+    deco: 'tang',
+  },
+  {
+    name: 'BLUERAZZLE',
+    jp: 'ブルー',
+    tagline: 'Blue razz with extra dazzle.',
+    desc: 'Electric blue raspberry swirling over fresh lemonade — the bluest thing at the market.',
+    sour: 3,
+    bg: 'var(--color-sky)',
+    deep: 'var(--color-sky-deep)',
+    cup: { drink: '#3ecfe0', accent: 'var(--color-sky-deep)', face: 'var(--color-sky-soft)', mood: 'wink' },
+    ingredients: ['blue raspberry', 'lemon juice', 'lemon wheel'],
+    deco: 'sky',
+  },
+  {
+    name: 'CUTE-CUMBER',
+    jp: 'きゅうり',
+    tagline: 'Cool as a, well… you know.',
+    desc: 'Garden cucumber pressed with lemon. Today’s-special energy, every single time.',
+    sour: 2,
+    bg: '#7ed957',
+    deep: '#54b32e',
+    cup: { drink: '#a4dd55', accent: '#54b32e', face: '#d3f0a8', mood: 'happy' },
+    ingredients: ['fresh cucumber', 'lemon juice', 'tiny mint'],
+    deco: 'lemon',
+  },
+  {
+    name: 'COCONUTTY',
+    jp: 'ココナッツ',
+    tagline: 'A little nutty, a lotta creamy.',
+    desc: 'Toasted coconut cream meets the squeeze. A beach nap in a cup.',
+    sour: 1,
+    bg: '#d9a36b',
+    deep: '#b07a42',
+    cup: { drink: '#f3e4c8', accent: '#b07a42', face: '#f7ecd8', mood: 'wow' },
+    ingredients: ['coconut cream', 'lemon juice', 'toasted coconut'],
+    deco: 'tang',
+  },
+  {
+    name: 'SUNJOI',
+    jp: 'サンジョイ',
+    tagline: 'Pure sun, pure joy.',
+    desc: 'The OG fresh squeeze that started it all — lemons, cane sugar, big smile.',
     sour: 4,
     bg: 'var(--color-lemon)',
     deep: 'var(--color-lemon-deep)',
-    can: { body: '#ffd92e', bodyDeep: '#f0b400', face: 'var(--color-lemon)', mood: 'happy' },
+    cup: { drink: '#ffd21f', accent: 'var(--color-lemon-deep)', face: 'var(--color-lemon)', mood: 'happy' },
     ingredients: ['real lemon juice', 'cane sugar', 'pinch of sea salt'],
     deco: 'lemon',
   },
   {
-    name: 'PINK CLOUD',
-    jp: 'ピンク',
-    tagline: 'Strawberry fluff meets lemon zing.',
-    desc: 'Crushed strawberries swirled into cloud-soft lemonade. Tastes like a crush feels.',
-    sour: 2,
-    bg: 'var(--color-pink)',
-    deep: 'var(--color-pink-deep)',
-    can: { body: '#ff8abc', bodyDeep: '#e63e87', face: 'var(--color-pink-soft)', mood: 'wow' },
-    ingredients: ['strawberry purée', 'lemon juice', 'vanilla whisper'],
-    deco: 'pink',
-  },
-  {
-    name: 'SKY SODA',
-    jp: 'ソーダ',
-    tagline: 'Fizzy yuzu-lime, straight from the sky.',
-    desc: 'Sparkling lemonade with yuzu and lime, bubbles included. Shibuya sky in a can.',
+    name: 'MINT-T',
+    jp: 'ミント',
+    tagline: 'Fresh to def-mint.',
+    desc: 'Cool garden mint muddled into the squeeze. Brain freeze’s polite cousin.',
     sour: 3,
-    bg: 'var(--color-sky)',
-    deep: 'var(--color-sky-deep)',
-    can: { body: '#8fdfff', bodyDeep: '#2eb4f0', face: 'var(--color-sky-soft)', mood: 'wink' },
-    ingredients: ['yuzu', 'lime', 'sparkling water'],
+    bg: 'var(--color-mint)',
+    deep: '#3ec594',
+    cup: { drink: '#8df0c9', accent: '#3ec594', face: '#d2f8e8', mood: 'wink' },
+    ingredients: ['garden mint', 'lemon juice', 'cane sugar'],
     deco: 'sky',
-  },
-  {
-    name: 'TANGERINE CRUSH',
-    jp: 'みかん',
-    tagline: 'Golden hour, but drinkable.',
-    desc: 'Juicy tangerine and lemon mingling at sunset. Sweet, tangy, totally golden.',
-    sour: 3,
-    bg: 'var(--color-tang)',
-    deep: 'var(--color-tang-deep)',
-    can: { body: '#ffa35e', bodyDeep: '#f06c1d', face: '#ffc59b', mood: 'happy' },
-    ingredients: ['tangerine juice', 'lemon juice', 'orange blossom'],
-    deco: 'tang',
   },
 ]
 
@@ -148,14 +185,14 @@ function FlavorPanel({ flavor, index }: { flavor: Flavor; index: number }) {
       </span>
 
       <div className="relative z-10 flex w-full max-w-5xl flex-col items-center gap-2 md:flex-row md:justify-center md:gap-10">
-        {/* can */}
-        <div className="fl-can-wrap relative shrink-0">
-          <LemonCan
+        {/* cup */}
+        <div className="fl-cup-wrap relative shrink-0">
+          <LemonadeCup
             className="w-40 rotate-3 drop-shadow-[8px_10px_0_rgba(67,39,59,0.25)] md:w-72"
-            body={flavor.can.body}
-            bodyDeep={flavor.can.bodyDeep}
-            face={flavor.can.face}
-            mood={flavor.can.mood}
+            drink={flavor.cup.drink}
+            accent={flavor.cup.accent}
+            face={flavor.cup.face}
+            mood={flavor.cup.mood}
           />
         </div>
 
@@ -221,7 +258,7 @@ export function Flavors() {
 
       gsap.utils.toArray<HTMLElement>('.fl-panel').forEach((panel) => {
         const num = panel.querySelector('.fl-num')
-        const can = panel.querySelector('.fl-can-wrap')
+        const cup = panel.querySelector('.fl-cup-wrap')
         if (num) {
           gsap.from(num, {
             xPercent: 30,
@@ -235,8 +272,8 @@ export function Flavors() {
             },
           })
         }
-        if (can) {
-          gsap.from(can, {
+        if (cup) {
+          gsap.from(cup, {
             y: 140,
             rotation: 12,
             ease: 'none',
@@ -259,15 +296,16 @@ export function Flavors() {
       {/* section heading */}
       <div className="relative z-10 flex flex-col items-center px-4 pb-10 pt-16 text-center md:pb-14 md:pt-24">
         <span className="rotate-2 rounded-full border-3 border-ink bg-sky px-4 py-1.5 font-display text-sm font-extrabold uppercase tracking-wider text-ink sticker-shadow-sm">
-          ★ The lineup・ラインナップ
+          ★ The menu・メニュー
         </span>
         <h2 className="mt-4 font-display text-5xl font-extrabold leading-none tracking-tight md:text-7xl">
-          FOUR FLAVORS,
+          SEVEN FLAVORS,
           <br />
           <span className="text-pink-deep">ZERO CHILL.</span>
         </h2>
         <p className="mt-4 max-w-md font-body text-lg font-medium">
-          Every can is its own little world. {pinned ? 'Keep scrolling to meet them all.' : 'Swipe to meet them all. →'}
+          Every cup squeezed fresh at the stand.{' '}
+          {pinned ? 'Keep scrolling to meet them all.' : 'Swipe to meet them all. →'}
         </p>
       </div>
 

@@ -53,8 +53,8 @@ function Lemon({
   )
 }
 
-/** The hero lemonade can — procedural cylinders, no model download. */
-function LemonadeCan() {
+/** The hero lemonade cup — procedural geometry, no model download. */
+function LemonadeCup() {
   const ref = useRef<Group>(null)
 
   useFrame(({ clock }) => {
@@ -67,40 +67,58 @@ function LemonadeCan() {
 
   return (
     <group ref={ref} position={[0, -0.2, 0]}>
-      {/* body */}
-      <mesh>
-        <cylinderGeometry args={[1.05, 1.05, 2.7, 36]} />
-        <meshStandardMaterial color={PALETTE.pink} roughness={0.35} />
+      {/* lemonade base layer */}
+      <mesh position={[0, -0.65, 0]}>
+        <cylinderGeometry args={[0.92, 0.74, 1.2, 36]} />
+        <meshStandardMaterial color={PALETTE.lemon} roughness={0.4} />
       </mesh>
-      {/* label band */}
-      <mesh>
-        <cylinderGeometry args={[1.07, 1.07, 1.25, 36, 1, true]} />
-        <meshStandardMaterial color={PALETTE.cream} roughness={0.5} />
+      {/* flavor swirl layer */}
+      <mesh position={[0, 0.55, 0]}>
+        <cylinderGeometry args={[1.0, 0.92, 1.25, 36]} />
+        <meshStandardMaterial color={PALETTE.pink} roughness={0.4} />
       </mesh>
-      {/* lemon dot on the label */}
-      <mesh position={[0, 0, 1.04]} scale={[1, 0.75, 0.45]}>
-        <sphereGeometry args={[0.42, 18, 14]} />
-        <meshStandardMaterial color={PALETTE.lemon} roughness={0.5} />
+      {/* clear plastic cup */}
+      <mesh position={[0, 0, 0]}>
+        <cylinderGeometry args={[1.12, 0.82, 2.75, 36, 1, true]} />
+        <meshStandardMaterial
+          color="#ffffff"
+          roughness={0.15}
+          metalness={0.05}
+          transparent
+          opacity={0.32}
+        />
       </mesh>
-      {/* lid + base rims */}
-      <mesh position={[0, 1.38, 0]}>
-        <cylinderGeometry args={[0.92, 1.05, 0.18, 36]} />
-        <meshStandardMaterial color={PALETTE.pinkDeep} roughness={0.3} metalness={0.25} />
+      {/* rim ring */}
+      <mesh position={[0, 1.38, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[1.12, 0.06, 10, 36]} />
+        <meshStandardMaterial color="#ffffff" roughness={0.25} transparent opacity={0.7} />
       </mesh>
-      <mesh position={[0, 1.5, 0]}>
-        <cylinderGeometry args={[0.92, 0.92, 0.08, 36]} />
-        <meshStandardMaterial color={PALETTE.cream} roughness={0.3} metalness={0.3} />
+      {/* ice cubes peeking out */}
+      <mesh position={[0.4, 1.42, 0.3]} rotation={[0.4, 0.6, 0.2]}>
+        <boxGeometry args={[0.42, 0.42, 0.42]} />
+        <meshStandardMaterial color={PALETTE.sky} roughness={0.2} transparent opacity={0.85} />
       </mesh>
-      <mesh position={[0, -1.4, 0]}>
-        <cylinderGeometry args={[1.0, 0.92, 0.14, 36]} />
-        <meshStandardMaterial color={PALETTE.pinkDeep} roughness={0.3} metalness={0.25} />
+      <mesh position={[-0.35, 1.35, -0.2]} rotation={[0.2, 0.3, 0.5]}>
+        <boxGeometry args={[0.36, 0.36, 0.36]} />
+        <meshStandardMaterial color="#bfeaff" roughness={0.2} transparent opacity={0.85} />
       </mesh>
+      {/* lemon wheel resting on the rim */}
+      <group position={[-0.78, 1.45, 0]} rotation={[0.15, 0, -0.35]}>
+        <mesh>
+          <cylinderGeometry args={[0.52, 0.52, 0.1, 24]} />
+          <meshStandardMaterial color={PALETTE.lemonDeep} roughness={0.5} />
+        </mesh>
+        <mesh position={[0, 0.06, 0]}>
+          <cylinderGeometry args={[0.4, 0.4, 0.02, 24]} />
+          <meshStandardMaterial color={PALETTE.cream} roughness={0.5} />
+        </mesh>
+      </group>
       {/* straw */}
-      <mesh position={[0.42, 1.95, 0]} rotation={[0, 0, -0.32]}>
+      <mesh position={[0.42, 1.85, 0]} rotation={[0, 0, -0.32]}>
         <cylinderGeometry args={[0.09, 0.09, 1.3, 12]} />
         <meshStandardMaterial color={PALETTE.sky} roughness={0.4} />
       </mesh>
-      <mesh position={[0.78, 2.5, 0]} rotation={[0, 0, -1.45]}>
+      <mesh position={[0.78, 2.4, 0]} rotation={[0, 0, -1.45]}>
         <cylinderGeometry args={[0.09, 0.09, 0.55, 12]} />
         <meshStandardMaterial color={PALETTE.sky} roughness={0.4} />
       </mesh>
@@ -166,7 +184,7 @@ export default function HeroScene() {
       <directionalLight position={[6, -3, 2]} intensity={0.5} color={PALETTE.sky} />
 
       <Rig>
-        <LemonadeCan />
+        <LemonadeCup />
         <Lemon position={[-3.4, 1.1, -1.5]} scale={0.9} phase={0.4} />
         <Lemon position={[3.5, 1.6, -2]} scale={0.7} phase={2.1} spin={-0.4} />
         <Lemon position={[-2.6, -1.7, -0.5]} scale={0.65} phase={4.2} />
