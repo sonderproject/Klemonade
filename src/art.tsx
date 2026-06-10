@@ -105,14 +105,15 @@ export function LemonSlice({ className }: ArtProps) {
     <svg viewBox="0 0 120 120" className={className} aria-hidden="true">
       <circle cx="60" cy="60" r="54" fill="var(--color-lemon)" stroke={INK} strokeWidth="6" />
       <circle cx="60" cy="60" r="42" fill="var(--color-cream)" />
-      <g fill="var(--color-lemon-deep)" stroke={INK} strokeWidth="3.5" strokeLinejoin="round">
-        <path d="M60 24 L70 52 Q60 58 50 52 Z" />
-        <path d="M92 42 L66 56 Q62 66 70 70 Z" transform="rotate(8 60 60)" />
-        <path d="M60 96 L50 68 Q60 62 70 68 Z" />
-        <path d="M28 42 L54 56 Q58 66 50 70 Z" transform="rotate(-8 60 60)" />
-        <path d="M30 84 L54 66" />
-        <path d="M90 84 L66 66" />
+      <g stroke="var(--color-lemon-deep)" strokeWidth="5" strokeLinecap="round">
+        <line x1="72" y1="60" x2="96" y2="60" />
+        <line x1="66" y1="70.4" x2="78" y2="91.2" />
+        <line x1="54" y1="70.4" x2="42" y2="91.2" />
+        <line x1="48" y1="60" x2="24" y2="60" />
+        <line x1="54" y1="49.6" x2="42" y2="28.8" />
+        <line x1="66" y1="49.6" x2="78" y2="28.8" />
       </g>
+      <circle cx="60" cy="60" r="7" fill="var(--color-lemon-deep)" />
     </svg>
   )
 }
@@ -135,6 +136,74 @@ export function Heart({ className, fill = 'var(--color-pink)' }: ArtProps & { fi
         fill={fill} stroke={INK} strokeWidth="6" strokeLinejoin="round"
       />
       <ellipse cx="30" cy="24" rx="9" ry="6" fill="#fff" opacity="0.6" transform="rotate(-28 30 24)" />
+    </svg>
+  )
+}
+
+/** Parametric lemonade can — each flavor recolors the body and label face. */
+export function LemonCan({
+  className,
+  body,
+  bodyDeep,
+  face,
+  mood = 'happy',
+}: ArtProps & {
+  body: string
+  bodyDeep: string
+  face: string
+  mood?: 'happy' | 'wow' | 'wink'
+}) {
+  return (
+    <svg viewBox="0 0 170 250" className={className} aria-hidden="true">
+      {/* body */}
+      <path
+        d="M25 36 L145 36 L145 196 Q145 230 85 230 Q25 230 25 196 Z"
+        fill={body} stroke={INK} strokeWidth="6" strokeLinejoin="round"
+      />
+      {/* side sheen */}
+      <path d="M38 52 L38 92" stroke="#fff" strokeWidth="9" strokeLinecap="round" opacity="0.5" />
+      {/* label band */}
+      <path
+        d="M25 96 Q85 108 145 96 L145 158 Q85 170 25 158 Z"
+        fill="var(--color-cream)" stroke={INK} strokeWidth="5" strokeLinejoin="round"
+      />
+      {/* label face */}
+      <circle cx="85" cy="132" r="22" fill={face} stroke={INK} strokeWidth="5" />
+      {mood === 'happy' && (
+        <g stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none">
+          <path d="M74 129 q4.5 -5.5 9 0" />
+          <path d="M88 129 q4.5 -5.5 9 0" />
+          <path d="M81 138 q4 5 8 0" />
+        </g>
+      )}
+      {mood === 'wow' && (
+        <g>
+          <circle cx="78" cy="128" r="3.2" fill={INK} />
+          <circle cx="92" cy="128" r="3.2" fill={INK} />
+          <ellipse cx="85" cy="139" rx="4.5" ry="5.5" fill={INK} />
+        </g>
+      )}
+      {mood === 'wink' && (
+        <g>
+          <circle cx="78" cy="128" r="3.2" fill={INK} />
+          <path d="M88 128 q4.5 -5 9 0" stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none" />
+          <path d="M80 137 q5 6 10 0" stroke={INK} strokeWidth="4" strokeLinecap="round" fill="none" />
+        </g>
+      )}
+      <ellipse cx="69" cy="135" rx="4.5" ry="3" fill="var(--color-pink)" opacity="0.6" />
+      <ellipse cx="101" cy="135" rx="4.5" ry="3" fill="var(--color-pink)" opacity="0.6" />
+      {/* label stars */}
+      <path d="M44 124 l3 7 7 1 -5 5 1.4 7 -6.4 -3.6 -6.4 3.6 1.4 -7 -5 -5 7 -1 Z" fill={bodyDeep} opacity="0.85" />
+      <path d="M126 124 l3 7 7 1 -5 5 1.4 7 -6.4 -3.6 -6.4 3.6 1.4 -7 -5 -5 7 -1 Z" fill={bodyDeep} opacity="0.85" />
+      {/* bottom rim */}
+      <path d="M25 196 Q85 214 145 196 Q145 230 85 230 Q25 230 25 196 Z" fill={bodyDeep} stroke={INK} strokeWidth="6" strokeLinejoin="round" />
+      {/* lid */}
+      <ellipse cx="85" cy="36" rx="60" ry="16" fill="#f3e9d2" stroke={INK} strokeWidth="6" />
+      <ellipse cx="85" cy="34" rx="44" ry="10" fill="none" stroke={INK} strokeWidth="3.5" opacity="0.5" />
+      <rect x="74" y="26" width="22" height="9" rx="4.5" fill="#f3e9d2" stroke={INK} strokeWidth="3.5" />
+      {/* straw */}
+      <path d="M108 28 L124 -8" stroke={INK} strokeWidth="15" strokeLinecap="round" />
+      <path d="M108 28 L124 -8" stroke="var(--color-sky)" strokeWidth="9" strokeLinecap="round" />
     </svg>
   )
 }

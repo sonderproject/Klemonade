@@ -147,6 +147,22 @@ body {
   text-orientation: upright;
 }
 
+/* cursor sparkle trail */
+@keyframes sparkle-fly {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.1) rotate(60deg) translateY(-8px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(120deg) translateY(-20px);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
