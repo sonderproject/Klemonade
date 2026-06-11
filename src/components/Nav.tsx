@@ -10,7 +10,7 @@ export function Nav() {
   return (
     <header className="fixed inset-x-0 top-3 z-50 px-3 md:top-5 md:px-6">
       <nav className="mx-auto flex max-w-5xl items-center justify-between rounded-full border-3 border-ink bg-cream/95 py-2 pl-4 pr-2 backdrop-blur-sm sticker-shadow md:pl-6">
-        <a href="#top" className="flex min-h-11 items-center" aria-label="K Lemonade — back to top">
+        <a href="#top" className="flex min-h-11 items-center" aria-label="K’LEmonade — back to top">
           <img
             src={logoLockup}
             alt="K'Lemonade"

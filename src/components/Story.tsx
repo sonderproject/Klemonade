@@ -124,30 +124,41 @@ export function Story() {
           {/* editorial type block */}
           <div className="story-type md:w-1/2">
             <h2 className="font-display font-extrabold leading-[1.02] tracking-tight">
-              <span className="story-line block text-4xl md:text-6xl">Born at a</span>
+              <span className="story-line block text-4xl md:text-6xl">Made in</span>
               <span className="story-line block -rotate-1 text-5xl text-pink text-outline-cream-[0.05em] [text-shadow:0.04em_0.05em_0_var(--color-ink)] md:text-7xl">
-                San Diego stand.
+                Normal Heights.
               </span>
-              <span className="story-line mt-3 block text-4xl md:text-6xl">Raised on</span>
-              <span className="story-line block rotate-1 text-5xl text-sky-deep text-outline-cream-[0.05em] [text-shadow:0.04em_0.05em_0_var(--color-ink)] md:text-7xl">
-                Harajuku dreams.
+              <span className="story-line mt-3 block text-4xl md:text-6xl">Powered by</span>
+              <span className="story-line block rotate-1 text-6xl text-sky-deep text-outline-cream-[0.05em] [text-shadow:0.04em_0.05em_0_var(--color-ink)] md:text-8xl">
+                The JOI.
               </span>
             </h2>
 
             <p className="story-line mt-8 max-w-md font-body text-lg font-medium leading-relaxed">
-              K&nbsp;Lemonade started with a wobbly card table, a hand-painted sign, and one
+              Hi, I’m K’LE JOI — born and raised right here in Normal Heights, San Diego.
+              What started as a
               <em className="px-1 font-bold not-italic [background:linear-gradient(transparent_55%,var(--color-lemon)_55%)]">
-                very sour summer
+                weekend lemonade stand
               </em>
-              . Then we took one life-changing trip to Tokyo — and came home with a suitcase
-              full of stickers and a brand-new dream.
+              got its big break at PHATCAMP, where I first sold my homemade lemonades
+              between softball games with my mom.
             </p>
             <p className="story-line mt-4 max-w-md font-body text-lg font-medium leading-relaxed">
-              Now every cup gets the full kawaii treatment:
+              I mix every flavor myself and put my whole personality into every cup — so
+              pretty soon people weren’t just buying lemonade, they were coming back for
               <em className="px-1 font-bold not-italic [background:linear-gradient(transparent_55%,var(--color-pink-soft)_55%)]">
-                real fruit, zero shortcuts
+                The JOI
               </em>
-              , and a smile drawn on by hand. Remi insists.
+              . Your tips and support go straight into my school trips, sports, and
+              activities. Instead of asking, I work for my extras — my own hard-earned coins.
+            </p>
+            <p className="story-line mt-4 max-w-md font-body text-lg font-medium leading-relaxed">
+              I’m 14, still mixing, blending, and dreaming big — proof that small ideas can
+              grow into something real. One day:
+              <em className="px-1 font-bold not-italic [background:linear-gradient(transparent_55%,var(--color-lemon)_55%)]">
+                a K’LEmonade Bar
+              </em>
+              with endless flavors and a whole lot of community. Until then, see you at the stand.
             </p>
 
             <Squiggle className="story-line mt-8 w-40" stroke="var(--color-pink)" />
@@ -157,7 +168,7 @@ export function Story() {
           <div className="relative mx-auto h-[660px] w-full max-w-sm md:h-[700px] md:w-1/2 md:max-w-none">
             <Polaroid
               scene={<SceneStand className="block" />}
-              caption="summer no. 1 ☀️ the stand"
+              caption="the OG weekend stand ☀️"
               className="absolute left-0 top-0 -rotate-6"
             />
             <Polaroid
@@ -197,9 +208,9 @@ export function Story() {
         <div className="story-quote relative mx-auto mt-20 max-w-2xl -rotate-2 md:mt-28">
           <blockquote className="rounded-[2.5rem] border-3 border-ink bg-cream px-8 py-8 text-center sticker-shadow-lg md:px-14 md:py-10">
             <p className="font-display text-4xl font-extrabold leading-tight md:text-6xl">
-              “Cute is a <span className="text-pink-deep">flavor</span>.”
+              “People come back for <span className="text-pink-deep">The JOI</span>.”
             </p>
-            <footer className="mt-3 font-body text-base font-bold text-ink/90">— Remi, probably・レミ</footer>
+            <footer className="mt-3 font-body text-base font-bold text-ink/90">— K’LE JOI, founder, age 14・ジョイ</footer>
           </blockquote>
           {/* speech tail */}
           <span aria-hidden="true" className="absolute -bottom-5 left-16 h-10 w-10 rotate-45 border-b-3 border-r-3 border-ink bg-cream" />

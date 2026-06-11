@@ -1,8 +1,9 @@
-# K Lemonade 🍋
+# K'LEmonade 🍋
 
-Single-page marketing site for **K Lemonade** — fresh-squeezed kawaii lemonade
-served by the cup at San Diego farmers markets. Starring **Remi** (レミ), our
-original lemon mascot, plus Kori the ice cube and Ichigo the strawberry.
+Single-page marketing site for **K'LEmonade** — kawaii lemonade hand-mixed by
+14-year-old founder **K'LE JOI** in Normal Heights and served by the cup at San
+Diego farmers markets. Starring **Remi** (レミ), our original lemon mascot,
+plus Kori the ice cube and Ichigo the strawberry.
 Illustrations are hand-drawn inline SVG; the logo lockup and cup photos are
 client assets (processed via `scripts/prep-assets.mjs` from the originals at the
 repo root — `IMG_6974.png` is the old sticker sheet, reference only, never shown

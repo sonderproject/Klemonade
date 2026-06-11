@@ -81,7 +81,7 @@ const FLAVORS: Flavor[] = [
   {
     name: 'SUNJOI',
     jp: 'サンジョイ',
-    tagline: 'Pure sun, pure joy.',
+    tagline: 'Pure sun, pure JOI.',
     desc: 'The OG fresh squeeze that started it all — lemons, cane sugar, big smile.',
     sour: 4,
     bg: 'var(--color-lemon)',

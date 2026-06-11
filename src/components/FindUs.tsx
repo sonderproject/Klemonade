@@ -131,7 +131,7 @@ export function FindUs() {
               ref={mapEl}
               className="absolute inset-0 z-0"
               role="region"
-              aria-label="Map of San Diego farmers markets where K Lemonade pops up"
+              aria-label="Map of San Diego farmers markets where K’LEmonade pops up"
             />
             <span className="pointer-events-none absolute right-4 top-3 z-[500] -rotate-2 rounded-full border-2 border-ink bg-lemon px-3 py-1 font-display text-xs font-extrabold uppercase tracking-wider sticker-shadow-sm md:text-sm">
               this week ☆ 今週
@@ -159,7 +159,7 @@ export function FindUs() {
 
         <p className="mx-auto mt-10 max-w-xl text-center font-body text-base font-medium">
           Schedule shifts with the seasons — check our socials (down below ↓) before you roll up.
-          Fresh cups while the lemons last. それ、かわいい！
+          Every cup (and tip!) goes toward school trips, sports, and big dreams. それ、かわいい！
         </p>
       </div>
 

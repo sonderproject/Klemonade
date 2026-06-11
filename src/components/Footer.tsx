@@ -13,7 +13,7 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink pb-8 text-cream">
       <Marquee
-        items={['SQUEEZE THE DAY', 'レモネード', 'STAY JUICY', 'キラキラ', 'K LEMONADE']}
+        items={['SQUEEZE THE DAY', 'レモネード', 'STAY JUICY', 'キラキラ', 'K’LEMONADE']}
         fast
         className="rotate-1 border-y-3 border-cream/20 bg-lemon py-2.5 font-display text-lg font-extrabold uppercase text-ink md:text-xl"
       />
@@ -24,7 +24,7 @@ export function Footer() {
             <img src={logoLockup} alt="K'Lemonade" className="h-9 w-auto md:h-10" width="720" height="167" />
           </div>
           <p className="mt-4 max-w-xs font-body text-sm font-medium text-cream/70">
-            Made with real fruit and unreasonable amounts of joy in San Diego, CA.
+            Hand-mixed with real fruit and unreasonable amounts of JOI in Normal Heights, San Diego.
           </p>
         </div>
 
@@ -43,7 +43,7 @@ export function Footer() {
       </div>
 
       <div className="mt-6 flex items-center justify-center gap-4 px-5 font-body text-xs font-semibold text-cream/70 md:text-sm">
-        <span>© 2026 K Lemonade</span>
+        <span>© 2026 K’LEmonade</span>
         <Sparkle className="w-3" fill="var(--color-lemon)" />
         <span>Stay juicy・またね！</span>
         <Sparkle className="w-3" fill="var(--color-pink)" />
@@ -53,7 +53,7 @@ export function Footer() {
       {/* oversized cropped wordmark */}
       <div aria-hidden="true" className="pointer-events-none mt-6 select-none overflow-hidden">
         <p className="translate-y-[32%] whitespace-nowrap text-center font-display text-[19vw] font-extrabold leading-none tracking-tight text-lemon md:text-[16.5vw]">
-          K&nbsp;LEMONADE
+          K’LEMONADE
         </p>
       </div>
     </footer>

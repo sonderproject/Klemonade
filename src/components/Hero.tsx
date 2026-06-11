@@ -129,7 +129,7 @@ export function Hero() {
         </h1>
 
         <p className="hero-sub mt-6 max-w-md font-body text-lg font-medium md:text-xl">
-          Kawaii lemonade squeezed fresh by the cup at San Diego farmers markets.
+          Kawaii lemonade hand-mixed by K’LE JOI at San Diego farmers markets.
           Meet <span className="px-0.5 font-bold [background:linear-gradient(transparent_55%,var(--color-lemon)_55%)]">Remi</span> — your new juiciest friend.
         </p>
 
@@ -167,7 +167,7 @@ export function Hero() {
 
       {/* bottom marquee strip */}
       <Marquee
-        items={['K LEMONADE', 'レモネード', 'SQUEEZE THE DAY', 'すっぱい！', 'SAN DIEGO KAWAII']}
+        items={['K’LEMONADE', 'レモネード', 'SQUEEZE THE DAY', 'すっぱい！', 'SAN DIEGO KAWAII']}
         className="relative z-10 -rotate-1 border-y-3 border-ink bg-pink py-3 font-display text-xl font-extrabold uppercase text-ink md:text-2xl"
       />
     </section>
