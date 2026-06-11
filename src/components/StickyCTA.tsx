@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 /** Mobile-only bottom CTA — appears once the hero has scrolled away. */
-export function StickyCTA() {
+export function StickyCTA({ href = '../#find-us' }: { href?: string }) {
   const [shown, setShown] = useState(false)
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export function StickyCTA() {
       }`}
     >
       <a
-        href="#find-us"
+        href={href}
         className="btn-puffy flex min-h-13 items-center justify-center bg-pink font-display text-xl font-extrabold text-ink"
       >
         Find Us This Week 🍋

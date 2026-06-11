@@ -6,6 +6,10 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
+      input: {
+        main: 'index.html',
+        story: 'story/index.html',
+      },
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return

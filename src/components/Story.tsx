@@ -39,7 +39,7 @@ function SceneStand({ className }: { className?: string }) {
   )
 }
 
-function Polaroid({
+export function Polaroid({
   scene,
   caption,
   className = '',
@@ -161,6 +161,14 @@ export function Story() {
               with endless flavors and a whole lot of community. Until then, see you at the stand.
             </p>
 
+            <div className="story-line mt-8">
+              <a
+                href="/story/"
+                className="btn-puffy inline-flex min-h-12 items-center bg-sky px-7 font-display text-lg font-extrabold text-ink"
+              >
+                Read the full story →
+              </a>
+            </div>
             <Squiggle className="story-line mt-8 w-40" stroke="var(--color-pink)" />
           </div>
 
